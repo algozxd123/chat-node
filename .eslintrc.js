@@ -17,7 +17,7 @@ module.exports = {
     'no-template-curly-in-string': 'warn',
     'no-unused-private-class-members': 'warn',
     'no-use-before-define': 'error',
-    'quotes': ['error', 'single'],
-    'semi': ['error', 'always']
-  }
+    quotes: ['error', 'single'],
+    semi: ['error', 'always'],
+  },
 };
