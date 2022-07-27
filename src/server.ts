@@ -16,11 +16,11 @@ setupDatabase();
 // json parser
 app.use(express.json());
 //enable cors
-app.use(cors);
+app.use(cors());
 // many middlewares to prevent vulnerabilities
-app.use(helmet);
+app.use(helmet());
 // protection agains HTTP Parameters Polition
-app.use(hpp);
+app.use(hpp());
 
 app.use(routes);
 
