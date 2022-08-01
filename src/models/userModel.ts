@@ -1,7 +1,7 @@
-import { Document, model, Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { UserType } from '../interfaces/userInterface';
 
-const userSchema: Schema = new Schema({
+const userSchema: Schema = new Schema<UserType>({
   username: {
     type: String,
     required: true,
@@ -24,8 +24,10 @@ const userSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Users'
   }]
-}, { timestamps: true });
+}, {
+  timestamps: true
+});
 
-const userModel = model<UserType & Document>('User', userSchema);
+const userModel = model<UserType>('User', userSchema);
 
 export default userModel;

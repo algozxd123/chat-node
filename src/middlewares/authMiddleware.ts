@@ -11,10 +11,11 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const secretKey: string | undefined = process.env.SECRET_KEY;
     if (secretKey === undefined) throw new Error('Internal server error');
 
-    const verificationResponse = (verify(token, secretKey)) as { _id: string };
-    const userId = verificationResponse._id;
+    const verificationResponse = (verify(token, secretKey)) as { id: string };
+    const userId = verificationResponse.id;
 
     if (userId) {
+      if(req.body === undefined) req.body = {};
       req.body.userId = userId;
       next();
     } else {

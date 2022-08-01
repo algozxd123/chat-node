@@ -9,6 +9,11 @@ const UserValidator = z.object({
   friendRequests: z.array(z.string())
 });
 
-type UserType = z.infer<typeof UserValidator>;
+const FriendRequestValidator = z.object({
+  friendId: z.string()
+});
 
-export { UserType, UserValidator };
+type UserType = z.infer<typeof UserValidator>;
+type FriendRequestType = z.infer<typeof FriendRequestValidator>;
+
+export { UserType, UserValidator, FriendRequestType, FriendRequestValidator };

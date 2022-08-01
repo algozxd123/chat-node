@@ -7,9 +7,9 @@ const signUp = async (req: Request, res: Response) => {
   try {
     const userData: SignUpType = req.body;
     const signUpUser: UserType = await AuthService.signUp(userData);
-
+    
     signUpUser.password = '';
-    return res.status(200).json({ signUpUser });
+    return res.status(200).json({ user: signUpUser });
   } catch (error) {
     const err = (error as Error);
     return res.status(400).send({ error: err.message });
@@ -22,7 +22,7 @@ const logIn = async (req: Request, res: Response) => {
     const { jwt, user } = await AuthService.logIn(userData);
 
     user.password = '';
-    return res.status(200).json({ data: { jwt, user } });
+    return res.status(200).json({ jwt, user});
   } catch (error) {
     const err = (error as Error);
     return res.status(400).send({ error: err.message });

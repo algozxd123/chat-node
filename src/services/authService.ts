@@ -8,8 +8,8 @@ const createToken = (user: UserType): TokenDataType => {
   const secretKey: string | undefined = process.env.SECRET_KEY;
   if (secretKey === undefined) throw new Error('Internal server error');
   const expiresIn = 60 * 60;
-
-  return { expiresIn, token: sign({ _id: user._id }, secretKey, { expiresIn }) };
+  const token = sign({ id: user._id }, secretKey, { expiresIn });
+  return { expiresIn, token };
 };
 
 const signUp = async (userData: SignUpType) => {
@@ -33,7 +33,6 @@ const logIn = async (userData: LogInType) => {
 
   const isPasswordMatching: boolean = await compare(userData.password, findUser.password);
   if (!isPasswordMatching) throw new Error('Incorrect password');
-
   const tokenData = createToken(findUser);
   findUser.password = '';
   return { jwt: tokenData, user: findUser };
