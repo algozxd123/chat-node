@@ -21,6 +21,7 @@ describe('Authentication system', () => {
     if (response.body.error) fail(response.body.data.error);
 
     expect(response.body.message).toBe('User created');
+    fail();
   });
 
   it('login should return complete user', async () => {
