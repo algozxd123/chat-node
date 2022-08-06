@@ -6,9 +6,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon",
     "start": "npm run build && cross-env NODE_ENV=production node dist/index.js",
-    "build": "tsc",
+    "build": "npm run tsc",
     "lint": "npx eslint . --fix",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "tsc": "tsc"
   },
   "keywords": [],
   "author": "",
