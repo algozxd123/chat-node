@@ -8,6 +8,10 @@ const routes = express.Router();
 routes.post('/api/signup', AuthController.signUp);
 routes.post('/api/login', AuthController.logIn);
 
+routes.get('/', (req: express.Request, res: express.Response) => {
+  return res.send('Hello World');
+});
+
 routes.use(authMiddlewareExpress);
 
 routes.get('/api/getUser', UserController.getUser);
@@ -18,9 +22,5 @@ routes.post('/api/acceptFriendRequest', UserController.acceptFriendRequest);
 routes.post('/api/rejectFriendRequest', UserController.rejectFriendRequest);
 routes.post('/api/removeFriend', UserController.removeFriend);
 routes.post('/api/getMessages', UserController.getMessages);
-
-routes.get('/', (req: express.Request, res: express.Response) => {
-  return res.send('Hello World');
-});
 
 export default routes;
