@@ -18,16 +18,9 @@ describe('Authentication system', () => {
       .send(userData)
       .set('Content-Type', 'application/json');
 
-    if (response.body.error) fail(response.body.error);
+    if (response.body.error) fail(response.body.data.error);
 
-    expect(response.body.user.username).toBe(userData.username);
-    expect(response.body.user.email).toBe(userData.email);
-    expect(response.body.user.friends).toEqual([]);
-    expect(response.body.user.friendRequests).toEqual([]);
-    expect(response.body.user).toHaveProperty('password');
-    expect(response.body.user).toHaveProperty('_id');
-    expect(response.body.user).toHaveProperty('createdAt');
-    expect(response.body.user).toHaveProperty('updatedAt');
+    expect(response.body.message).toBe('User created');
   });
 
   it('login should return complete user', async () => {
@@ -36,19 +29,16 @@ describe('Authentication system', () => {
       .send({email: userData.email, password: userData.password})
       .set('Content-Type', 'application/json');
 
-    if (response.body.error) fail(response.body.error);
+    if (response.body.error) fail(response.body.data.error);
 
-    authToken = response.body.jwt.token;
-    userId = response.body.user._id;
+    authToken = response.body.data.jwt.token;
+    userId = response.body.data.user._id;
 
-    expect(response.body.user.username).toBe(userData.username);
-    expect(response.body.user.email).toBe(userData.email);
-    expect(response.body.user.friends).toEqual([]);
-    expect(response.body.user.friendRequests).toEqual([]);
-    expect(response.body.user).toHaveProperty('_id');
-    expect(response.body.user).toHaveProperty('createdAt');
-    expect(response.body.user).toHaveProperty('updatedAt');
-    expect(response.body.jwt).toHaveProperty('token');
-    expect(response.body.jwt).toHaveProperty('expiresIn');
+    expect(response.body.data.user.username).toBe(userData.username);
+    expect(response.body.data.user.email).toBe(userData.email);
+    expect(response.body.data.user).toHaveProperty('_id');
+    expect(response.body.data.jwt).toHaveProperty('token');
+    expect(response.body.data.jwt).toHaveProperty('expiresIn');
+    expect(response.body.message).toBe('Login successful');
   });
 });

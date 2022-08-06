@@ -25,7 +25,7 @@ beforeAll(async () => {
 describe('Friend system', () => {
   it('should send friend request', async () => {
     const bodyData = {
-      friendId: userWithToken2.user._id.toString()
+      username: userWithToken2.user.username
     };
 
     const response = await supertest(app)
@@ -52,10 +52,10 @@ describe('Friend system', () => {
 
     if (response.body.error) fail(response.body.error);
 
-    expect(Array.isArray(response.body)).toBe(true);
-    expect(response.body[0]._id.toString()).toBe(userWithToken1.user._id.toString());
-    expect(response.body[0].username).toBe(userWithToken1.user.username);
-    expect(response.body[0].email).toBe(userWithToken1.user.email);
+    expect(Array.isArray(response.body.data)).toBe(true);
+    expect(response.body.data[0]._id.toString()).toBe(userWithToken1.user._id.toString());
+    expect(response.body.data[0].username).toBe(userWithToken1.user.username);
+    expect(response.body.data[0].email).toBe(userWithToken1.user.email);
   });
 
   it('should reject friend request', async () => {
@@ -83,7 +83,7 @@ describe('Friend system', () => {
       friendId: userWithToken1.user._id.toString()
     };
 
-    await UserService.sendFriendRequest(userWithToken1.user._id.toString(), userWithToken2.user._id.toString());
+    await UserService.sendFriendRequest(userWithToken1.user._id.toString(), userWithToken2.user.username);
 
     const response = await supertest(app)
       .post('/api/acceptFriendRequest')
@@ -114,10 +114,10 @@ describe('Friend system', () => {
 
       if (response.body.error) fail(response.body.error);
 
-      expect(Array.isArray(response.body)).toBe(true);
-      expect(response.body[0]._id.toString()).toBe(userWithToken1.user._id.toString());
-      expect(response.body[0].username).toBe(userWithToken1.user.username);
-      expect(response.body[0].email).toBe(userWithToken1.user.email);
+      expect(Array.isArray(response.body.data)).toBe(true);
+      expect(response.body.data[0]._id.toString()).toBe(userWithToken1.user._id.toString());
+      expect(response.body.data[0].username).toBe(userWithToken1.user.username);
+      expect(response.body.data[0].email).toBe(userWithToken1.user.email);
   });
 
   it('should remove friend', async () => {
